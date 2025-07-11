@@ -29,6 +29,12 @@ RUN set -x \
                 libicu-dev \
                 unzip \
 		jq \
+                libmariadb-dev \
+                # Install libssl1.1 for compatibility, as it was removed from Debian 12 repos
+                && wget -O /tmp/libssl1.1.deb http://deb.debian.org/debian/pool/main/o/openssl/libssl1.1_1.1.1w-0+deb11u1_amd64.deb \
+                && apt-get install -y /tmp/libssl1.1.deb \
+                && rm /tmp/libssl1.1.deb \
+	# Create server directory
 	&& mkdir -p "${STEAMAPPDIR}" \
 	# Add entry script
 	&& chmod +x "${HOMEDIR}/entry.sh" \
